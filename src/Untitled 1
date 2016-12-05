@@ -1,0 +1,51 @@
+public boolean validateNextPosition() {
+		
+		if(moving) return true;
+		
+		rowTile = y / tileSize;
+		colTile = x / tileSize;
+		
+		if(left) {
+			if(colTile == 0 || tileMap.getType((y - tileSize / 2) / tileSize, (x - tileSize/2 - moveSpeed) / tileSize) == Tile.BLOCKED || tileMap.getType((x + tileSize / 2) / tileSize, (x - tileSize / 2 - moveSpeed) / tileSize) == Tile.BLOCKED
+					|| tileMap.getType((y - tileSize / 2 + height) / tileSize, (x - tileSize/2 - moveSpeed) / tileSize) == Tile.BLOCKED || tileMap.getType((y + tileSize / 2) / tileSize, (x - tileSize / 2 - moveSpeed) / tileSize) == Tile.BLOCKED) {
+				return false;
+			}
+			else {
+				xdest = x - moveSpeed;
+			}
+			//System.out.println("" + (x + tileSize / 2) / tileSize + " " + (x - moveSpeed) / tileSize);
+			//System.out.println(tileMap.getType((x + tileSize / 2) / tileSize, (x - moveSpeed) / tileSize));
+		}
+		if(right) {
+			if(colTile == tileMap.getNumCols() || (tileMap.getType((y - tileSize / 2) / tileSize, (x - tileSize / 2 + moveSpeed + width) / tileSize) == Tile.BLOCKED 
+					|| tileMap.getType((y - tileSize / 2 + height) / tileSize, (x - tileSize / 2 + moveSpeed) / tileSize + width) == Tile.BLOCKED)) {
+				return false;
+			}
+			else {
+				xdest = x + moveSpeed;
+			}
+		}
+		if(up) {
+			if(rowTile == 0 || tileMap.getType((y - tileSize / 2 - moveSpeed) / tileSize, (x - tileSize / 2) / tileSize) == Tile.BLOCKED
+					|| tileMap.getType((y - tileSize / 2 - moveSpeed) / tileSize, (x - tileSize / 2 + width) / tileSize) == Tile.BLOCKED) {
+				return false;
+			}
+			else {
+				ydest = y - moveSpeed;
+			}
+		}
+		if(down) {
+			if(rowTile == tileMap.getNumRows() - 1 || tileMap.getType((y + height - tileSize / 2 + moveSpeed) / tileSize, (x - tileSize / 2) / tileSize) == Tile.BLOCKED
+					|| tileMap.getType((y + height - tileSize / 2 + moveSpeed) / tileSize, (x - tileSize / 2 + width) / tileSize) == Tile.BLOCKED) {
+				return false;
+			}
+			else {
+				ydest = y + moveSpeed;
+			}
+		}
+		System.out.println(""  + colTile + " " + rowTile);
+		System.out.println(""  + x + ", " + y);
+		//System.out.println(tileMap.getIndex(xmap + x / tileSize, ymap + y / tileSize));		
+		return true;
+		
+	}
